@@ -25,6 +25,16 @@ const getUserData = (req, res) => {
       })
       .then((goalsData) => {
         userData.goals = goalsData;
+        // res.status(200).json(userData);
+        return knex('taskdetails').where("user_id", userID);
+      })
+      .then((data) => {
+        userData.taskdetails = data;
+        return knex('goaldetails')
+          .where("user_id", userID);
+      })
+      .then((data) => {
+        userData.goaldetails = data;
         res.status(200).json(userData);
       })
       .catch((err) => res.status(400).send(`Error retrieving UserData: ${err}`));
