@@ -5,7 +5,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('goaldetails', (table) => {
         table.increments('id').primary();
-        table.integer('goal_id')
+        table.integer('section_id')
         .unsigned()
         .references('goals.id')
         .onUpdate('CASCADE')

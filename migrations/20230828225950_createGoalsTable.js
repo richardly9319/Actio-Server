@@ -10,7 +10,7 @@ exports.up = function(knex) {
         .references('users.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
-        table.string('goal_name').notNullable();
+        table.string('item_name').notNullable();
     })
 };
 
