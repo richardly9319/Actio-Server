@@ -9,8 +9,8 @@ exports.seed = async function(knex) {
   const insertResult = await knex('goals').insert([
     {id: 1, user_id: 1, item_name: 'goal1'},
     {id: 2, user_id: 1, item_name: 'goal2'},
-    {id: 3, user_id: 2, item_name: 'goal3'},
-    {id: 4, user_id: 2, item_name: 'goal4'}
+    {id: 3, user_id: 2, item_name: 'Land first Software Developer Job'},
+    {id: 4, user_id: 2, item_name: 'Get under 14% bodyfat'}
   ]);
 } catch(err) {
   console.error(err)

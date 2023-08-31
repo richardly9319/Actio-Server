@@ -30,6 +30,26 @@ const getUserData = (req, res) => {
       })
       .then((data) => {
         userData.taskdetails = data;
+        return knex('challenges')
+          .where("user_id", userID);
+      })
+      .then((data) => {
+        userData.challenges = data;
+        return knex('challengeDetails')
+          .where("user_id", userID);
+      })
+      .then((data) => {
+        userData.challengeDetails = data;
+        return knex('inspiration')
+          .where("user_id", userID);
+      })
+      .then((data) => {
+        userData.inspiration = data;
+        return knex('insightsIdeas')
+          .where("user_id", userID);
+      })
+      .then((data) => {
+        userData.insightsIdeas = data;
         return knex('goaldetails')
           .where("user_id", userID);
       })
