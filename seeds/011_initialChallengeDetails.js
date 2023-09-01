@@ -4,8 +4,8 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex('challengeDetails').del()
-  await knex('challengeDetails').insert([
+  await knex('challengedetails').del()
+  await knex('challengedetails').insert([
     {id: 1, section_id: 1, user_id: 2, detail_text: 'increase green veggies'},
     {id: 2, section_id: 1, user_id: 2, detail_text: 'eat more organic/whole foods'},
     {id: 3, section_id: 1, user_id: 2, detail_text: 'aerobic cardio after weightlifting'},

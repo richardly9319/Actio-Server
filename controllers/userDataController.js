@@ -8,28 +8,13 @@ const getUserData = (req, res) => {
     knex("users")
       .where("users.id", userID)
       .then((userDataFromUsersTable) => {
-        // Assuming userDataFromUsersTable contains the user data
         userData.user = userDataFromUsersTable[0]; // Assuming you're expecting a single user
-        return knex('taskgroups')
-          .where("user_id", userID);
-      })
-      .then((taskgroupsData) => {
-        userData.taskgroups = taskgroupsData;
-        return knex('tasks')
-          .where("user_id", userID);
-      })
-      .then((tasksData) => {
-        userData.tasks = tasksData;
         return knex('goals')
           .where("user_id", userID);
       })
+      
       .then((goalsData) => {
         userData.goals = goalsData;
-        // res.status(200).json(userData);
-        return knex('taskdetails').where("user_id", userID);
-      })
-      .then((data) => {
-        userData.taskdetails = data;
         return knex('challenges')
           .where("user_id", userID);
       })
@@ -39,7 +24,7 @@ const getUserData = (req, res) => {
           .where("user_id", userID);
       })
       .then((data) => {
-        userData.challengeDetails = data;
+        userData.challengedetails = data;
         return knex('inspiration')
           .where("user_id", userID);
       })
@@ -61,9 +46,52 @@ const getUserData = (req, res) => {
   };
   
 
+const getTasksData = (req, res) => {
+    const userID = req.params.id;
+  
+    const tasksData = {};
+  
+    knex("tasks")
+      .where("user_id", userID)
+      .then((data) => {
+        tasksData.tasks = data;
+        return knex('taskgroups')
+          .where("user_id", userID);
+      })
+      .then((data) => {
+        tasksData.taskgroups = data;
+        return knex('taskdetails')
+          .where("user_id", userID);
+      })
+      .then((data) => {
+        tasksData.tasksdetails = data;
+        res.status(200).json(tasksData);
+      })
+      .catch((err) => res.status(400).send(`Error retrieving TasksData: ${err}`)
+      );
+}
+
+
+
+const deleteTask = async (req, res) => {
+    const taskId = req.params.taskId;
+  
+    try {
+      await knex('taskdetails')
+      .where('task_id', taskId).del();
+
+      await knex('tasks')
+      .where('id', taskId).del();
+  
+      res.status(200).json({ message: 'Task and associated details deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred while deleting task and details' });
+    }
+  };
 
 
 module.exports = {
     getUserData,
-
+    getTasksData,
+    deleteTask,
 };

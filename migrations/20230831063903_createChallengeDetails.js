@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-    return knex.schema.createTable('challengeDetails', (table) => {
+    return knex.schema.createTable('challengedetails', (table) => {
         table.increments('id').primary();
         table.integer('section_id')
         .unsigned()
