@@ -62,6 +62,23 @@ const getUserData = (req, res) => {
     }
 };
 
+const addItem = async (req, res) => {
+    const itemType = req.params.itemType;
+    const newItemData = req.body;
+
+    try {
+        const insertedItem = await knex(itemType).insert(newItemData);
+
+        res.status(201).json({
+            message: 'Item added successfully',
+            newItem: { id: insertedItem[0], ...newItemData },
+        });
+    } catch (err) {
+        res.status(500).json({ error: 'An error occurred while adding item' });
+    }
+};
+
+
 
 
 const getTasksData = (req, res) => {
@@ -200,5 +217,6 @@ module.exports = {
     deleteTask,
     editTask,
     addTask,
-    deleteItem
+    deleteItem,
+    addItem
 };

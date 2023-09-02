@@ -19,7 +19,7 @@ router
 
 router
   .route("/:id/:itemType")
-  // .post(userDataController.addItem);
+  .post(userDataController.addItem);
 
 router
   .route("/:id")
