@@ -78,145 +78,65 @@ const addItem = async (req, res) => {
     }
 };
 
+const editItem = async (req, res) => {
+  const itemID = req.params.taskId;
+  const itemType = req.params.itemType;
 
+  const { item, itemDetails } = req.body;
 
+  const itemTypeDetails = itemType.slice(0, -1) + "details";
 
-const getTasksData = (req, res) => {
-    const userID = req.params.id;
-  
-    const tasksData = {};
-  
-    knex("tasks")
-      .where("user_id", userID)
-      .then((data) => {
-        tasksData.tasks = data;
-        return knex('taskgroups')
-          .where("user_id", userID);
-      })
-      .then((data) => {
-        tasksData.taskgroups = data;
-        return knex('taskdetails')
-          .where("user_id", userID);
-      })
-      .then((data) => {
-        tasksData.tasksdetails = data;
-        res.status(200).json(tasksData);
-      })
-      .catch((err) => res.status(400).send(`Error retrieving TasksData: ${err}`)
-      );
-}
-
-
-const deleteTask = async (req, res) => {
-    const taskId = req.params.taskId;
-  
-    try {
-      await knex('taskdetails')
-      .where('task_id', taskId).del();
-
-      await knex('tasks')
-      .where('id', taskId).del();
-  
-      res.status(200).json({ message: 'Task and associated details deleted successfully' });
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred while deleting task and details' });
-    }
-  };
-
-  const editTask = async (req, res) => {
-    const taskId = req.params.taskId;
-    const { task, taskDetails } = req.body;
-  
-    try {
-      // Check if task and taskDetails are defined
-      if (!task || !taskDetails) {
-        return res.status(400).json({
-          message: 'Invalid request body. Both task and taskDetails are required.',
-        });
-      }
-  
-      // Update the task
-      await knex('tasks').where('id', taskId).update(task);
-  
-      // Check if the task was updated successfully
-      const updatedTask = await knex('tasks').where('id', taskId).first();
-      if (!updatedTask) {
-        return res.status(404).json({
-          message: `Task with ID: ${taskId} to be edited not found.`,
-        });
-      }
-  
-      // Update the task detail
-      await knex('taskdetails').where('id', taskDetails.id).update(taskDetails);
-  
-      // Check if the task detail was updated successfully
-      const updatedTaskDetail = await knex('taskdetails')
-        .where('id', taskDetails.id)
-        .first();
-      if (!updatedTaskDetail) {
-        return res.status(404).json({
-          message: `Task detail with ID: ${taskDetails.id} to be edited not found.`,
-        });
-      }
-  
-      res.status(200).json({ task: updatedTask, taskDetail: updatedTaskDetail });
-    } catch (error) {
-      res.status(500).json({
-        message: 'An error occurred while updating the task and task detail',
-        error: error.message,
+  try {
+    if (!item) {
+      return res.status(400).json({
+        message: 'Invalid request body. Item is required.',
       });
     }
-  };
-  
-  const addTask = async (req, res) => {
-    const { task, taskDetails } = req.body;
-  
-    try {
-      if (!task || !taskDetails) {
-        return res.status(400).json({
-          message: 'Invalid request body. Both task and taskDetails are required.',
-        });
-      }
-  
-      const [taskId] = await knex('tasks').insert(task);
-  
-      if (!taskId) {
-        return res.status(500).json({
-          message: 'Failed to add the task.',
-        });
-      }
-  
-      taskDetails.task_id = taskId;
-  
-      const [taskDetailsId] = await knex('taskdetails').insert(taskDetails);
-  
-      // Check if the taskDetails were inserted successfully
-      if (!taskDetailsId) {
-        return res.status(500).json({
-          message: 'Failed to add task details.',
-        });
-      }
-  
-      res.status(201).json({
-        task: { ...task, id: taskId },
-        taskDetails: { ...taskDetails, id: taskDetailsId },
-      });
-    } catch (error) {
-      res.status(500).json({
-        message: 'An error occurred while adding the task and task details.',
-        error: error.message,
+
+    await knex(itemType).where('id', itemID).update(item);
+
+    const updatedItem = await knex(itemType).where('id', itemID).first();
+    if (!updatedItem) {
+      return res.status(404).json({
+        message: `Item with ID: ${itemID} to be edited not found.`,
       });
     }
-  };
-  
+
+    if (Array.isArray(itemDetails) && itemDetails.length > 0) {
+      for (const detail of itemDetails) {
+        if (detail.id) {
+          await knex(itemTypeDetails)
+            .where('id', detail.id)
+            .update(detail);
+        }
+      }
+    }
+
+    const updatedItemDetails = await knex(itemTypeDetails)
+      .where('section_id', itemID)
+      .select('*');
+
+    res.status(200).json({ item: updatedItem, itemDetails: updatedItemDetails });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: 'An error occurred while updating the task and task detail',
+      error: error.message,
+    });
+  }
+};
+
+
+
+
+
+
+
   
 
 module.exports = {
     getUserData,
-    getTasksData,
-    deleteTask,
-    editTask,
-    addTask,
     deleteItem,
-    addItem
+    addItem,
+    editItem
 };

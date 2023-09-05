@@ -10,7 +10,7 @@ exports.seed = async function(knex) {
     {id: 1, user_id: 1, item_name: 'goal1'},
     {id: 2, user_id: 1, item_name: 'goal2'},
     {id: 3, user_id: 2, item_name: 'Land first Software Developer Job'},
-    {id: 4, user_id: 2, item_name: 'Get under 14% bodyfat'}
+    {id: 4, user_id: 2, item_name: 'Get under 15% bodyfat while building muscle'}
   ]);
 } catch(err) {
   console.error(err)
