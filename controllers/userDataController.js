@@ -129,7 +129,25 @@ const editItem = async (req, res) => {
 };
 
 
+const addDetail = async (req, res) => {
+  const itemType = req.params.itemType; 
+  const itemID = req.params.itemId; 
+  const newDetailData = req.body; 
+  const itemTypeDetails = itemType.slice(0, -1) + "details";
+  try {
+    newDetailData.user_id = req.params.id; 
+    newDetailData.section_id = itemID;
 
+    const insertedDetail = await knex(itemTypeDetails).insert(newDetailData);
+
+    res.status(201).json({
+      message: 'Detail added successfully',
+      newDetail: { id: insertedDetail[0], ...newDetailData },
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'An error occurred while adding detail' });
+  }
+};
 
 
 
@@ -140,5 +158,6 @@ module.exports = {
     getUserData,
     deleteItem,
     addItem,
-    editItem
+    editItem,
+    addDetail
 };
