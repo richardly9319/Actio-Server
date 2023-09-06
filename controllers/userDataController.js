@@ -65,9 +65,11 @@ const getUserData = (req, res) => {
 const addItem = async (req, res) => {
     const itemType = req.params.itemType;
     const newItemData = req.body;
+    console.log(itemType);
+    console.log(newItemData[itemType]);
 
     try {
-        const insertedItem = await knex(itemType).insert(newItemData);
+        const insertedItem = await knex(itemType).insert(newItemData[itemType]);
 
         res.status(201).json({
             message: 'Item added successfully',
