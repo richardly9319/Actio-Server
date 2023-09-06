@@ -3,7 +3,6 @@
  * @returns { Promise<void> } 
  */
 exports.seed = async function(knex) {
-  // Deletes ALL existing entries
   await knex('goaldetails').del()
   await knex('goaldetails').insert([
     {id: 1, section_id: 3, user_id: 2, detail_text: 'finish and deploy Capstone Project'},
