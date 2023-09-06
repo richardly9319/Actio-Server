@@ -32,7 +32,8 @@ router
 router
   .route("/:id/:itemType/:itemId")
   .delete(userDataController.deleteItem)
-  .put(userDataController.editItem);
+  .put(userDataController.editItem)
+  .post(userDataController.addDetail);
 
 
 router
