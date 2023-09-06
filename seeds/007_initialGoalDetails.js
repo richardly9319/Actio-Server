@@ -11,5 +11,6 @@ exports.seed = async function(knex) {
     {id: 3, section_id: 3, user_id: 2, detail_text: 'apply to 10 jobs a day'},
     {id: 4, section_id: 4, user_id: 2, detail_text: 'full body weight training routine'},
     {id: 5, section_id: 4, user_id: 2, detail_text: 'HIIT cardio 2x a week'},
+    {id: 7, section_id: 5, user_id: 2, detail_text: 'Practice 45mins 2x per week'},
   ]);
 };
