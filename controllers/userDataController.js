@@ -50,10 +50,16 @@ const getUserData = (req, res) => {
     const itemType = req.params.itemType;
     const itemID = req.params.itemId;
 
+    console.log("req.params", req.params);
+     
     const itemTypeDetails = itemType.slice(0, -1) + "details";
 
+    
+
     try {
+      if ((itemType == "goals") || (itemType == "challenges")) {
         await knex(`${itemTypeDetails}`).where('section_id', itemID).del();
+      }
 
         await knex(itemType).where('id', itemID).del();
         res.status(200).json({ message: 'Item deleted successfully' });
