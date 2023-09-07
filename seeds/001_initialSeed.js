@@ -3,10 +3,17 @@
  * @returns { Promise<void> } 
  */
 exports.seed = async function(knex) {
-  await knex('users').del()
-  await knex('users').insert([
-    {id: 1, email: 'email1', password: '123'},
-    {id: 2, email: 'email2', password: '1234'},
-    {id: 3, email: 'email3', password: '12345'}
-  ]);
+  await knex('users').del();
+
+  const users = [];
+
+  for (let i = 1; i <= 100; i++) {
+    users.push({
+      id: i,
+      email: `email${i}@example.com`,  // This will generate unique emails like email1@example.com, email2@example.com, etc.
+      password: `pass${i}`             // Similar approach for passwords.
+    });
+  }
+
+  await knex('users').insert(users);
 };
