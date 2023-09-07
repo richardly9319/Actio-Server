@@ -17,5 +17,7 @@ exports.seed = async function(knex) {
     {id: 9, user_id: 2, task_name: 'Cook/Meal prep', priority_level: 2, active_state: true, reoccurance: 1, start_date: '2023-08-29', due_date: '2023-09-09'},
     {id: 10, user_id: 2, task_name: 'Gym workout', priority_level: 4, active_state: true, reoccurance: 2, start_date: '2023-08-29', due_date: '2023-09-09'},
     {id: 11, user_id: 2, task_name: 'Practice Piano', priority_level: 2, active_state: true, reoccurance: 3, start_date: '2023-08-29', due_date: '2023-09-09'},
+    {id: 15, user_id: 3, task_name: 'Grocery shop', priority_level: 2, active_state: true, reoccurance: 7, start_date: '2023-08-29', due_date: '2023-09-09'},
+    
   ]);
 };
