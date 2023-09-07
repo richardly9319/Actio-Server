@@ -224,7 +224,12 @@ const addTaskGroup = async (req, res) => {
 };
 
 const addTaskDetail = async (req, res) => {
-    const { taskDetail, taskId } = req.body;
+
+    console.log("addTaskDetail hit");
+
+    const { taskDetail, taskId, userID } = req.body;
+
+    
   
     try {
       if (!taskDetail || !taskId) {
@@ -234,6 +239,9 @@ const addTaskDetail = async (req, res) => {
       }
   
       taskDetail.task_id = taskId;
+      taskDetail.user_id = userID;
+
+      console.log("taskDetail: ", taskDetail)
   
       const [taskDetailId] = await knex('taskdetails').insert(taskDetail);
   
