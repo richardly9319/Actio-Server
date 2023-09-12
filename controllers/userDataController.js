@@ -76,7 +76,7 @@ const addItem = async (req, res) => {
 
     try {
         const insertedItem = await knex(itemType).insert(newItemData[itemType]);
-
+      
         res.status(201).json({
             message: 'Item added successfully',
             newItem: { id: insertedItem[0], ...newItemData },

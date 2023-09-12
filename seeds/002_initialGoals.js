@@ -17,8 +17,6 @@ exports.seed = async function(knex) {
     {id: 9, user_id: 9, item_name: 'Get first Tech job after BrainStation bootcamp'},
     {id: 10, user_id: 10, item_name: 'Get first Tech job after BrainStation bootcamp'},
     {id: 11, user_id: 11, item_name: 'Get first Tech job after BrainStation bootcamp'},
-    // {id: 12, user_id: 12, item_name: 'Get first Tech job after BrainStation bootcamp'},
-    // {id: 13, user_id: 13, item_name: 'Get first Tech job after BrainStation bootcamp'},
     {id: 14, user_id: 14, item_name: 'Get first Tech job after BrainStation bootcamp'},
     {id: 15, user_id: 15, item_name: 'Get first Tech job after BrainStation bootcamp'},
     {id: 16, user_id: 16, item_name: 'Get first Tech job after BrainStation bootcamp'},
