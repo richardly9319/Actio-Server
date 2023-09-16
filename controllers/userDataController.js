@@ -140,10 +140,11 @@ const addDetail = async (req, res) => {
   const itemID = req.params.itemId; 
   const newDetailData = req.body; 
   const itemTypeDetails = itemType.slice(0, -1) + "details";
+  
   try {
-    newDetailData.user_id = req.params.id; 
-    newDetailData.section_id = itemID;
-
+    newDetailData.user_id = parseInt(req.params.id); 
+    newDetailData.section_id = parseInt(itemID);
+    
     const insertedDetail = await knex(itemTypeDetails).insert(newDetailData);
 
     res.status(201).json({
