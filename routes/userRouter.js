@@ -44,4 +44,10 @@ router
   .route("/:id")
   .get(userDataController.getUserData);
 
+router.get("/", (req, res) => {
+    res.status(200).json({
+        message: "Welcome to the API"
+    });
+});
+
 module.exports = router;
