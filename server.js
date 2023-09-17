@@ -20,9 +20,9 @@ app.use(cors());
 app.use(express.json());
 
 // User routes
-app.use("/", userRoute);
-
 app.use("/auth", authRoute);
+
+app.use("/", userRoute);
 
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
