@@ -13,8 +13,8 @@ exports.seed = async function(knex) {
     {id: 8, task_id: 6, user_id:2, detail_text: 'When user clicks on circle icon to left of item'},
     {id: 9, task_id: 6, user_id:2, detail_text: 'Apply popup animation when clicked'},
     {id: 10, task_id: 11, user_id:2, detail_text: '5 min Hanon exercises'},
-    {id: 12, task_id: 11, user_id:2, detail_text: '10 min scales'},
-    {id: 11, task_id: 11, user_id:2, detail_text: '30 min practice pieces'},
+    {id: 11, task_id: 11, user_id:2, detail_text: '10 min scales'},
+    {id: 12, task_id: 11, user_id:2, detail_text: '30 min practice pieces'},
 
   ]);
 };   
