@@ -12,10 +12,10 @@ const PORT = process.env.PORT || 5050;
 // CORS middleware
 app.use(cors());
 
-// Middleware to set the COOP headers
+// Middleware to set the COOP and COEP headers
 app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-  res.setHeader("Cross-Origin-Embedder-Policy", "require-corp"); // It's good practice to set COEP alongside COOP
+  res.header("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+  res.header("Cross-Origin-Embedder-Policy", "require-corp"); // It's good practice to set COEP alongside COOP
   next();
 });
 
@@ -26,5 +26,5 @@ app.use(express.json());
 app.use("/", userRoute);
 
 app.listen(PORT, () => {
-  console.log(`Listening on ${process.env.PORT}`);
+  console.log(`Listening on ${PORT}`);
 });
