@@ -1,7 +1,7 @@
 const express = require("express");
 const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
-const knex = require("knex")(require("./knexfile.js"));
+const knex = require("knex")(require("../knexfile.js"));
 
 
 const router = express.Router();
@@ -14,6 +14,10 @@ const client = new OAuth2Client(googleClientId);
 
 
 router.post('/google', async (req, res) => {
+
+
+    console.log("backend auth fired")
+
     try {
         const ticket = await client.verifyIdToken({
             idToken: req.body.token,
