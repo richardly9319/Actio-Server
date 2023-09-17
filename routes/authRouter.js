@@ -3,21 +3,13 @@ const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
 const knex = require("knex")(require("../knexfile.js"));
 
-
 const router = express.Router();
 
 const googleClientId = process.env.GOOGLE_CLIENT_ID;
 
-
 const client = new OAuth2Client(googleClientId);
 
-
-
 router.post('/google', async (req, res) => {
-
-
-    console.log("backend auth fired")
-
     try {
         const ticket = await client.verifyIdToken({
             idToken: req.body.token,
@@ -27,13 +19,14 @@ router.post('/google', async (req, res) => {
         const payload = ticket.getPayload();
         const googleUserId = payload['sub'];
 
-        // Check if the user exists in your database
+        // Check if the user exists in your database using googleUserId
         let user = await knex('users').where({ googleUserId }).first();
 
         // If not, create a new user
         if (!user) {
             await knex('users').insert({
-                googleUserId,
+                googleUserId: googleUserId,
+                email: payload['email']
                 // ... any other fields you want to store
             });
             user = await knex('users').where({ googleUserId }).first();
@@ -52,6 +45,5 @@ router.post('/google', async (req, res) => {
         res.status(500).json({ error: 'Authentication failed' });
     }
 });
-
 
 module.exports = router;
