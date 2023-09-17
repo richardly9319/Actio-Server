@@ -10,40 +10,44 @@ const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const client = new OAuth2Client(googleClientId);
 
 router.post('/google', async (req, res) => {
-    try {
-        const ticket = await client.verifyIdToken({
-            idToken: req.body.token,
-            audience: googleClientId,
-        });
 
-        const payload = ticket.getPayload();
-        const googleUserId = payload['sub'];
+    res.status(200).json({
+        message: "Post Hit"
+    });
+    // try {
+    //     const ticket = await client.verifyIdToken({
+    //         idToken: req.body.token,
+    //         audience: googleClientId,
+    //     });
 
-        // Check if the user exists in your database using googleUserId
-        let user = await knex('users').where({ googleUserId }).first();
+    //     const payload = ticket.getPayload();
+    //     const googleUserId = payload['sub'];
 
-        // If not, create a new user
-        if (!user) {
-            await knex('users').insert({
-                googleUserId: googleUserId,
-                email: payload['email']
-                // ... any other fields you want to store
-            });
-            user = await knex('users').where({ googleUserId }).first();
-        }
+    //     // Check if the user exists in your database using googleUserId
+    //     let user = await knex('users').where({ googleUserId }).first();
 
-        // Create a JWT token
-        const userToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    //     // If not, create a new user
+    //     if (!user) {
+    //         await knex('users').insert({
+    //             googleUserId: googleUserId,
+    //             email: payload['email']
+    //             // ... any other fields you want to store
+    //         });
+    //         user = await knex('users').where({ googleUserId }).first();
+    //     }
 
-        res.json({
-            user,
-            token: userToken
-        });
+    //     // Create a JWT token
+    //     const userToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-    } catch (error) {
-        console.error("Error in /auth/google:", error);
-        res.status(500).json({ error: 'Authentication failed' });
-    }
+    //     res.json({
+    //         user,
+    //         token: userToken
+    //     });
+
+    // } catch (error) {
+    //     console.error("Error in /auth/google:", error);
+    //     res.status(500).json({ error: 'Authentication failed' });
+    // }
 });
 
 module.exports = router;
