@@ -164,7 +164,6 @@ const editTaskDetail = async (req, res) => {
   
 const addTask = async (req, res) => {
   const { task } = req.body;
-  console.log(task);
 
   try {
     if (!task) {
