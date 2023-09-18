@@ -12,6 +12,6 @@ exports.seed = async function(knex) {
     {id: 5, section_id: 4, user_id: 2, detail_text: 'HIIT cardio 2x a week'},
     {id: 7, section_id: 5, user_id: 2, detail_text: 'Practice 45mins 2x per week'},
     {id: 8, section_id: 5, user_id: 2, detail_text: 'River Flows in You'},
-    {id: 8, section_id: 5, user_id: 2, detail_text: 'Kingdom Hearts Dearly Beloved'},
+    {id: 9, section_id: 5, user_id: 2, detail_text: 'Kingdom Hearts Dearly Beloved'},
   ]);
 };
