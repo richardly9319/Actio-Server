@@ -16,7 +16,6 @@ exports.seed = async function(knex) {
     {id: 11, task_id: 11, user_id:2, detail_text: '10 min scales'},
     {id: 12, task_id: 11, user_id:2, detail_text: '30 min practice pieces'},
     {id: 13, task_id: 7, user_id:2, detail_text: 'brown rice'},
-    {id: 14, task_id: 18, user_id:2, detail_text: ''},
 
   ]);
 };   
