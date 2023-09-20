@@ -158,6 +158,23 @@ const addDetail = async (req, res) => {
 
 
 
+const deleteDetail = async (req, res) => {
+  const itemType = req.params.itemType; 
+  const itemId = req.params.itemId;
+  const detailId = req.params.detailId;
+  const itemTypeDetails = itemType.slice(0, -1) + "details";  // Assuming your details table follows the convention 'itemType' minus 's' + 'details'
+  
+ 
+  
+
+
+  try {
+      await knex(itemTypeDetails).where('id', detailId).del();
+      res.status(200).json({ message: 'Detail deleted successfully' });
+  } catch (err) {
+      res.status(500).json({ error: 'An error occurred while deleting detail' });
+  }
+};
 
   
 
@@ -166,5 +183,6 @@ module.exports = {
     deleteItem,
     addItem,
     editItem,
-    addDetail
+    addDetail,
+    deleteDetail
 };

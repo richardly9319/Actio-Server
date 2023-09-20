@@ -10,6 +10,10 @@ router
   .put(tasksDataController.editTaskDetail);
 
 router
+  .route("/:id/:itemType/:itemId/:detailId")
+  .delete(userDataController.deleteDetail);
+
+router
   .route("/:id/tasks/:taskId")
   .delete(tasksDataController.deleteTask)
   .put(tasksDataController.editTask)
@@ -27,6 +31,8 @@ router
 router
   .route("/:id/taskgroups/:taskGroupId")
   .delete(tasksDataController.deleteTaskGroup)
+
+
 
 
 router
