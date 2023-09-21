@@ -3,7 +3,7 @@
  * @returns { Promise<void> } 
  */
 exports.seed = async function(knex) {
-  await knex('tasks').del()
+  // await knex('tasks').del()
 
   const tasks = [
     {id: 1, user_id: 2, taskgroup_id: 1, task_name: 'Spend time outdoors in sunlight', priority_level: 2, active_state: true, reoccurance: 1, start_date: '2023-08-29', due_date: '2023-09-09'},

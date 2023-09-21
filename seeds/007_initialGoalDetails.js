@@ -3,7 +3,7 @@
  * @returns { Promise<void> } 
  */
 exports.seed = async function(knex) {
-  await knex('goaldetails').del()
+  // await knex('goaldetails').del()
   await knex('goaldetails').insert([
     {id: 1, section_id: 3, user_id: 2, detail_text: 'finish and deploy Productivity Management App'},
     {id: 2, section_id: 3, user_id: 2, detail_text: 'polish up Github Portfolio'},
